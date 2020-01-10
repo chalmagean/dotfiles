@@ -1,0 +1,25 @@
+alias open_last_capybara_screenshot="ls -1t tmp/capybara/*.png|head -1|xargs open"
+
+alias vim='nvim'
+alias e='nvim'
+alias tig='tig status'
+
+alias tags='ctags -R --languages=ruby --exclude=.git --exclude=log . $(bundle list --paths)'
+
+alias l='ls -laGh'
+alias tree='tree -C'
+alias t='tree -C'
+
+alias gs='git status'
+alias ga='git add'
+alias gau='git add -u'
+alias gap='git add -p'
+alias gb="git for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'"
+alias gc='git commit -v'
+alias gca='git commit -v --amend'
+alias gd='git diff'
+alias gco='git checkout'
+alias gdc='git diff --cached'
+
+# Remove branches that have already been merged
+alias gbc='git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d'

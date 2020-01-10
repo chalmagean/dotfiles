@@ -1,0 +1,39 @@
+#!/bin/sh
+
+if test -f ".env.test"; then
+  echo "Loading the test enviromnment..."
+  source .env.test
+fi
+
+if [ -d "./spec" ]; then
+  RAILS_ENV=test bundle exec rspec
+
+  if [[ $? != 0 ]]; then
+    echo "RSpec tests have failures. Push rejected."
+    exit 1
+  fi;
+else
+  echo "RSpec tests skipped..."
+fi
+
+if [ -d "./features" ]; then
+  RAILS_ENV=test bundle exec cucumber --no-strict
+
+  if [[ $? != 0 ]]; then
+    echo "Feature tests have failures. Push rejected."
+    exit 1
+  fi;
+else
+  echo "Cucumber tests skipped..."
+fi
+
+if [ -d "./spec/javascript" ]; then
+  RAILS_ENV=test yarn jest
+
+  if [[ $? != 0 ]]; then
+    echo "Yarn tests have failures. Push rejected."
+    exit 1
+  fi;
+else
+  echo "Javascript tests skipped..."
+fi

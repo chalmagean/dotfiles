@@ -1,0 +1,149 @@
+snippet ac
+add_column :${1:table_name}, :${2:column_name}, :${3:column_type}$0
+endsnippet
+
+snippet rt
+render_template('$1')
+endsnippet
+
+snippet rc
+rename_column :${1:table_name}, :${2:old_column_name}, :${3:new_column_name}$0
+endsnippet
+
+snippet vp "validates presence"
+validates :$1, presence: true$0
+endsnippet
+
+snippet vl "validates length"
+validates :$1, length: { minimum: $0 }
+endsnippet
+
+snippet rsfind "find_resource"
+def find_${1/./\l$0/}
+	@${1/./\l$0/} = ${1:Model}.find(params.require(:id))
+end
+endsnippet
+
+snippet rsparams "resource_params"
+def ${1:resource_name}_params
+	params.require(:$1).permit($0)
+end
+endsnippet
+
+snippet rsindex "index controller action"
+def index
+	@${1/./\l$0/}s = ${1:Model}.all
+end
+endsnippet
+
+snippet rsnew "#new controller action"
+def new
+	@${1/./\l$0/} = ${1:Model}.new
+end
+endsnippet
+
+snippet rscreate "#create controller action"
+def create
+	@${1/./\l$0/} = ${1:Model}.new(${1/./\l$0/}_params)
+
+	if @${1/./\l$0/}.save
+		flash[:notice] = t('.success')
+		redirect_to(@${1/./\l$0/})
+	else
+		flash[:alert] = t('.failure')
+		render action: :new
+	end
+end
+endsnippet
+
+snippet jrscreate "#create json"
+def create
+	respond_to do |format|
+		@${1/./\l$0/} = ${1:Model}.new(${1/./\l$0/}_params)
+
+		if @${1/./\l$0/}.save
+			format.json { head :no_content }
+		else
+			format.json do
+				render json: { errors: @${1/./\l$0/}.errors }, status: :unprocessable_entity
+			end
+		end
+	end
+end
+endsnippet
+
+snippet rsupdate "#update controller action"
+def update
+	if @${1:resource_name}.update($1_params)
+		flash[:notice] = t('.success')
+		redirect_to(@$1)
+	else
+		render action: :edit
+	end
+end
+endsnippet
+
+snippet resource "resource controller"
+class ${1:Model}sController < ApplicationController
+	before_action :find_${1/./\l$0/}, only: [:edit, :show, :update, :destroy]
+
+	def index
+		@${1/./\l$0/}s = $1.all
+	end
+
+	def new
+		@${1/./\l$0/} = $1.new
+	end
+
+	def edit
+	end
+
+	def show
+	end
+
+	def create
+		@${1/./\l$0/} = $1.new(${1/./\l$0/}_params)
+
+		if @${1/./\l$0/}.save
+			flash[:notice] = t('.success')
+			redirect_to(@${1/./\l$0/})
+		else
+			flash[:alert] = t('.failure')
+			render action: :new
+		end
+	end
+
+	def update
+		if @${1/./\l$0/}.update(${1/./\l$0/}_params)
+			flash[:notice] = t('.success')
+			redirect_to(@${1/./\l$0/})
+		else
+			render action: :edit
+		end
+	end
+
+	def destroy
+		@${1/./\l$0/}.destroy
+		flash[:notice] = t('.success')
+		redirect_to root_path
+	end
+
+	private
+
+		def ${1/./\l$0/}_params
+			params.require(:${1/./\l$0/}).permit($0)
+		end
+
+		def find_${1/./\l$0/}
+			@${1/./\l$0/} = $1.find(params.require(:id))
+		end
+end
+endsnippet
+
+snippet hatbm "has_many"
+has_many :$0
+endsnippet
+
+snippet hatbm "has_and_belongs_to_many"
+has_and_belongs_to_many :$0
+endsnippet

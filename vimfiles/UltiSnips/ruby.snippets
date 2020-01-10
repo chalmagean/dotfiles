@@ -1,0 +1,142 @@
+snippet pry
+require "pry"; binding.pry${0}
+endsnippet
+
+snippet be
+before :each do
+	$0
+end
+endsnippet
+
+snippet ano
+as_null_object$0
+endsnippet
+
+snippet aco
+and_call_original$0
+endsnippet
+
+snippet itp
+it "$0" do
+	pending
+end
+endsnippet
+
+snippet it
+it "$1" do
+	$0
+end
+endsnippet
+
+snippet desc
+describe "$1" do
+	it "$2" do
+		$0
+	end
+end
+endsnippet
+
+snippet let
+let(:$1) { $0 }
+endsnippet
+
+snippet letc
+let(:$1) { create(:$1) }
+endsnippet
+
+snippet letd
+let(:$1) { double("$1") }
+endsnippet
+
+snippet step
+step %($0)
+endsnippet
+
+snippet fi "fill_in"
+fill_in '$1', with: '$2'$0
+endsnippet
+
+snippet sc "feature scenario"
+scenario '$1' do
+	$0
+end
+endsnippet
+
+snippet ss "screenshot_and_open_image"
+screenshot_and_open_image
+endsnippet
+
+snippet itex "it { is_expected.to }"
+it { is_expected.to $0 }
+endsnippet
+
+snippet ex "expect(^).to ..."
+expect($1).to $0
+endsnippet
+
+snippet exe "expect(^).to eq(^)"
+expect($1).to eq($0)
+endsnippet
+
+snippet exm "expect(^).to match([^])"
+expect($1).to match([$0])
+endsnippet
+
+snippet exp "expect(page).to ..."
+expect(page).to have_css('$1', text: '$2')$0
+endsnippet
+
+snippet al
+allow($1).to receive($2).${3:and_return(${4:double.as_null_object})}$0
+endsnippet
+
+snippet exr "expect().to receive().and_return()"
+expect($1).to receive($2).${3:and_return(${4:double.as_null_object})}$0
+endsnippet
+
+snippet exc
+expect(page).to have_content("$1")$0
+endsnippet
+
+snippet fd "FactoryBot.define"
+FactoryBot.define do
+	factory :$1 do
+		$0
+	end
+end
+endsnippet
+
+snippet Given
+Given(/^$1$/) do
+	$0
+end
+endsnippet
+
+snippet When
+When(/^$1$/) do
+	$0
+end
+endsnippet
+
+snippet And
+And(/^$1$/) do
+	$0
+end
+endsnippet
+
+snippet Then
+Then(/^$1$/) do
+	$0
+end
+endsnippet
+
+snippet sop
+save_and_open_page$0
+endsnippet
+
+snippet con
+context "$1" do
+	$0
+end
+endsnippet
+

@@ -1,0 +1,48 @@
+# Always sort the files
+# --sort−files
+
+# --ignore-case
+ 
+# Always color, even if piping to a another program
+--color
+ 
+# Use "less −r" as my pager
+# --pager
+# less -r
+ 
+--ignore-dir=.idea/
+--ignore-dir=_site/
+--ignore-dir=.jekyll-cache/
+--ignore-dir=node_modules/
+--ignore-dir=elm-stuff/
+--ignore-dir=dist/
+--ignore-dir=resources/
+--ignore-dir=tmp/
+--ignore-dir=doc/
+--ignore-dir=log/
+--ignore-dir=public/assets/
+--ignore-dir=db/
+--ignore-dir=deps/
+--ignore-dir=coverage/
+--ignore-dir=public/packs/
+--ignore-dir=public/packs-test/
+--ignore-dir=_site/
+ 
+
+--type-add=css=scss
+--type-add=ruby=.haml,.feature,.ru
+--type-set=coffeescript=.coffee
+--type-set=coffee=.coffee
+--type-set=jade=.jade
+--type-set=feature=.feature
+--type-set=json=.json
+--type-set=rubocop=.rubocop.yml
+
+# ignore these files
+--ignore-file=is:tags
+--ignore-file=is:rubocop
+
+--type-set=LOG=.log
+--noLOG
+--type-set=LOCK=.lock
+--noLOCK

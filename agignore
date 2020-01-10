@@ -1,0 +1,17 @@
+.idea/
+.jekyll-cache/
+node_modules/
+elm-stuff/
+dist/
+resources/
+tmp/
+doc/
+log/
+public/assets/
+db/
+deps/
+coverage/
+public/packs/
+public/packs-test/
+_site/
+sorbet/
