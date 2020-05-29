@@ -460,7 +460,8 @@ Plug 'mhinz/vim-mix-format'
 " Project navigation
 Plug 'tpope/vim-vinegar'
 Plug 'scrooloose/nerdtree'
-Plug '/usr/local/opt/fzf'
+Plug '~/.fzf/bin/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 " Haskell
