@@ -3,22 +3,6 @@ require:
   - rubocop-performance
   - rubocop-rails
 
-AllCops:
-  TargetRubyVersion: 2.3
-  # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop
-  # to ignore them, so only the ones explicitly set in this file are enabled.
-  DisabledByDefault: true
-  Exclude:
-    - '**/templates/**/*'
-    - '**/vendor/**/*'
-    - 'actionpack/lib/action_dispatch/journey/parser.rb'
-    - 'db/schema.rb'
-    - 'config/initializers/devise.rb'
-    - 'features/step_definitions/email_steps.rb'
-    - 'lib/tasks/cucumber.rake'
-    - 'node_modules/**/*'
-    - 'bin/**/*'
-
 Performance/Caller:
   Enabled: true
 
@@ -150,6 +134,8 @@ Naming/VariableNumber:
 
 Lint/AmbiguousBlockAssociation:
   Enabled: true
+  Exclude:
+  - "spec/**/*"
 
 Lint/AmbiguousOperator:
   Enabled: true
@@ -202,7 +188,7 @@ Lint/EmptyInterpolation:
 Lint/EmptyWhen:
   Enabled: true
 
-Lint/EndInMethod:
+Style/EndBlock:
   Enabled: true
 
 Lint/EnsureReturn:
@@ -355,7 +341,7 @@ Lint/UselessAccessModifier:
 Lint/UselessAssignment:
   Enabled: true
 
-Lint/UselessComparison:
+Lint/BinaryOperatorWithIdenticalOperands:
   Enabled: true
 
 Lint/UselessElseWithoutRescue:
@@ -412,9 +398,6 @@ Style/BarePercentLiterals:
 Style/BlockDelimiters:
   Enabled: true
 
-Style/BracesAroundHashParameters:
-  Enabled: true
-
 Style/CaseEquality:
   Enabled: true
 
@@ -458,7 +441,7 @@ Style/Dir:
   Enabled: true
 
 Style/DoubleNegation:
-  Enabled: true
+  Enabled: false
 
 Style/EachForSimpleLoop:
   Enabled: true
@@ -498,6 +481,13 @@ Style/For:
 
 Style/FormatString:
   Enabled: true
+
+# Single quotes being faster is hardly measurable and only affects parse time.
+# Enforcing double quotes reduces the times where you need to change them when
+# introducing an interpolation. Use single quotes only if their semantics are
+# needed.
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
 
 Style/GlobalVars:
   Enabled: true
@@ -550,7 +540,7 @@ Style/MethodCallWithoutArgsParentheses:
 Style/MethodDefParentheses:
   Enabled: true
 
-Style/MethodMissingSuper:
+Lint/MissingSuper:
   Enabled: true
 
 Style/MinMax:
@@ -686,6 +676,9 @@ Style/RedundantInterpolation:
 Style/NilComparison:
   Enabled: true
 
+Layout/TrailingWhitespace:
+  Enabled: true
+
 Layout/DotPosition:
   EnforcedStyle: leading
 
@@ -791,3 +784,26 @@ Layout/SpaceAroundEqualsInParameterDefault:
 # Don't return true/false from a conditional
 Style/RedundantConditional:
   Enabled: true
+
+AllCops:
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  ExtraDetails: false
+  TargetRubyVersion: 2.5
+  # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop
+  # to ignore them, so only the ones explicitly set in this file are enabled.
+  DisabledByDefault: true
+  Exclude:
+    - "**/templates/**/*"
+    - "**/vendor/**/*"
+    - "actionpack/lib/action_dispatch/journey/parser.rb"
+    - "db/schema.rb"
+    - "config/initializers/devise.rb"
+    - "features/step_definitions/email_steps.rb"
+    - "lib/tasks/cucumber.rake"
+    - "node_modules/**/*"
+    - "bin/**/*"
+    - "config/initializers/rswag-ui.rb"
+    - "config/initializers/devise.rb"
+    - "script/**/*"
+    - "config/rollbar.rb"

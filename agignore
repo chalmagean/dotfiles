@@ -3,7 +3,6 @@
 node_modules/
 elm-stuff/
 dist/
-resources/
 tmp/
 doc/
 log/

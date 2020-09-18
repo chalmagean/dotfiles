@@ -1,0 +1,11 @@
+--skip-action-text
+--skip-action-mailbox
+--skip-action-cable
+--skip-sprockets
+--skip-spring
+--skip-turbolinks
+--skip-test
+--skip-bundle
+--webpack=elm
+--skip-webpack-install
+--template=~/dotfiles/rails_template.rb

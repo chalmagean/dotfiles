@@ -16,7 +16,6 @@
 --ignore-dir=node_modules/
 --ignore-dir=elm-stuff/
 --ignore-dir=dist/
---ignore-dir=resources/
 --ignore-dir=tmp/
 --ignore-dir=doc/
 --ignore-dir=log/

@@ -1,4 +1,4 @@
-let mapleader = "\<Space>"
+" let mapleader = "\<Space>"
 " Command mode mappings
 """""""""""""""""""""""
 cnoremap <C-a> <Home>
@@ -19,7 +19,6 @@ cnoremap <expr> <CR> getcmdtype() =~ '[/?]' ? '<CR>zz' : '<CR>'
 
 " Visual mode mappings
 """"""""""""""""""""""
-
 vnoremap <D-h> <Esc><c-w>h
 vnoremap <D-j> <Esc><c-w>j
 vnoremap <D-k> <Esc><c-w>k
@@ -33,12 +32,9 @@ cabbr %% <C-R>=expand('%:p:h')<CR>
 
 " Normal mode mappings
 """"""""""""""""""""""
-
 nmap <silent> tt :TestNearest<CR>
 nmap <silent> tf :TestFile<CR>
-nmap <silent> ts :TestSuite<CR>
 nmap <silent> tl :TestLast<CR>
-nmap <silent> tv :TestVisit<CR>
 
 nnoremap <C-p> :Files<CR>
 
@@ -50,8 +46,6 @@ nnoremap g] :sp<CR>:exec("tjump ".expand("<cword>"))<CR>
 
 " vinegar
 nmap - <Plug>VinegarUp
-nmap \ <Plug>VinegarVerticalSplitUp
-
 nmap \| :vs<CR>
 nmap _ :sp<CR>
 
@@ -62,7 +56,7 @@ nnoremap <bs> <c-^>
 nnoremap <expr> <CR> empty(&buftype) ? '@@' : '<CR>'
 
 " Avoid unintentional switches to Ex mode.
-nmap Q q
+nnoremap Q q
 
 " Multi-mode mappings (Normal, Visual, Operating-pending modes).
 noremap Y y$
@@ -72,23 +66,28 @@ nnoremap <silent> <Left> :vertical resize -5<CR>
 nnoremap <silent> <Down> :resize -5<CR>
 nnoremap <silent> <Up> :resize +5<CR>
 
-nnoremap <D-h> <c-w>h
-nnoremap <D-j> <c-w>j
-nnoremap <D-k> <c-w>k
-nnoremap <D-l> <c-w>l
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
 
 " Search for the word under cursor in the whole project
 " nnoremap K :tag <c-r>=expand("<cword>")<CR><CR>
-" nnoremap K :Ack! "\b<C-R><C-W>\b"<CR>:cw<CR>
+nnoremap K :Ack! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
-nnoremap <TAB> :BF<CR>
-nnoremap <S-TAB> :BB<CR>
+nnoremap zx mazMzv`a
 
-nnoremap ytn :tabnew<cr>
-nnoremap ytc :tabclose<cr>
-
+nnoremap <C-q> :qall<CR>
 " Leader mappings
 """""""""""""""""
+
+" CocExplorer
+" nmap <leader>e :CocCommand explorer --focus<CR>
+" nmap <leader>E :CocCommand explorer --preset floating<CR>
+nmap <leader>f :Fern . -drawer -toggle<CR>
+
+" Lazygit
+nmap <leader>g :FloatermNew lazygit<CR>
 
 " Set fold level
 nmap <leader>1 :set fdl=1<CR>
@@ -102,7 +101,8 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+nnoremap <silent> <f1> :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -113,15 +113,6 @@ endfunction
 
 nnoremap <leader>v :e $MYVIMRC<CR>
 nnoremap <leader>a :Ack!<Space>
-
-" Disable highlighting
-nnoremap <leader>h :noh<cr>
-
-" Copy file path
-nmap <leader>p :let @" = expand("%")<CR>
-
-map <leader>n :NERDTreeToggle<CR>
-map <leader>N :NERDTreeFind<CR>
 
 " Insert mode mappings
 """"""""""""""""""""""

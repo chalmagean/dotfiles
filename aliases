@@ -1,7 +1,9 @@
 alias open_last_capybara_screenshot="ls -1t tmp/capybara/*.png|head -1|xargs open"
+alias tl='tail -n 200 log/test.log'
 
 alias vim='nvim'
 alias e='nvim'
+alias lg='lazygit'
 alias tig='tig status'
 
 alias tags='ctags -R --languages=ruby --exclude=.git --exclude=log . $(bundle list --paths)'
@@ -23,3 +25,6 @@ alias gdc='git diff --cached'
 
 # Remove branches that have already been merged
 alias gbc='git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d'
+
+alias st="source .env.test"
+alias sd="source .env.development"

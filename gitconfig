@@ -11,7 +11,7 @@
 [core]
 	excludesfile = /Users/cezar/.gitignore_global
   hooksPath = ~/.git_template/hooks
-	pager = diff-so-fancy | less --tabs=4 -RFX
+	pager = diff-so-fancy | less --tabs=2 -RFX
 [pager]
   branch = false
 [alias]
@@ -36,7 +36,11 @@
   # git reviewone foo.js bar.js
   reviewone = !nvim -p +\"tabdo Gdiff $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
 [merge]
-	tool = fugitive
+	tool = Kaleidoscope
+  conflictstyle = diff3
+[mergetool "vim_mergetool"]
+  cmd = vim -f -c "MergetoolStart" "$MERGED" "$BASE" "$LOCAL" "$REMOTE"
+  trustExitCode = true
 [difftool]
 	prompt = false
 [mergetool]
@@ -44,15 +48,18 @@
 	keepBackup = false
 [diff]
 	tool = Kaleidoscope
-[difftool "sourcetree"]
-	cmd = /usr/local/bin/ksdiff -w \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /usr/local/bin/ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-	trustExitCode = true
 [commit]
 	template = /Users/cezar/.stCommitMsg
 [mergetool "fugitive"]
 	cmd = nvim -f -c \"Gvdiffsplit!\" \"$MERGED\"
 [diff-so-fancy]
 	markEmptyLines = false
+[difftool "sourcetree"]
+	cmd = /usr/local/bin/ksdiff -w \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /usr/local/bin/ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
+[mergetool "gitblade"]
+	cmd = \"/Applications/GitBlade.app/Contents/MacOS/GitBlade\" -c \"\"
+	trustExitCode = true
