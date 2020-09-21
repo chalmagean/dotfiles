@@ -491,6 +491,8 @@ Plug 'mhinz/vim-mix-format'
 " Haskell
 Plug 'neovimhaskell/haskell-vim'
 
+Plug 'rust-lang/rust.vim'
+
 " Themes
 Plug 'rakr/vim-one'
 Plug 'connorholyday/vim-snazzy'
@@ -514,6 +516,8 @@ call plug#end()
 let g:snipMate = get(g:, 'snipMate', {}) " Allow for vimrc re-sourcing
 let g:snipMate.scope_aliases = {}
 let g:snipMate.scope_aliases['ruby'] = 'ruby,rails'
+
+let g:rustfmt_autosave = 1
 
 let g:ruby_refactoring_map_keys=0
 
