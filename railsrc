@@ -1,6 +1,3 @@
---skip-action-text
---skip-action-mailbox
---skip-action-cable
 --skip-sprockets
 --skip-spring
 --skip-turbolinks
