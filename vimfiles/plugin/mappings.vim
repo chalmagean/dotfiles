@@ -38,9 +38,6 @@ nmap <silent> tl :TestLast<CR>
 
 nnoremap <C-p> :Files<CR>
 
-nmap <silent> <C-k> <Plug>(coc-diagnostic-prev)
-nmap <silent> <C-j> <Plug>(coc-diagnostic-next)
-
 " Open the definition in a new vsplit
 nnoremap g] :sp<CR>:exec("tjump ".expand("<cword>"))<CR>
 
@@ -82,9 +79,8 @@ nnoremap <C-q> :qall<CR>
 """""""""""""""""
 
 " CocExplorer
-" nmap <leader>e :CocCommand explorer --focus<CR>
-" nmap <leader>E :CocCommand explorer --preset floating<CR>
-nmap <leader>f :Fern . -drawer -toggle<CR>
+nmap <leader>e :CocCommand explorer --focus<CR>
+nmap <leader>E :CocCommand explorer --preset floating<CR>
 
 " Lazygit
 nmap <leader>g :FloatermNew lazygit<CR>
@@ -93,21 +89,28 @@ nmap <leader>g :FloatermNew lazygit<CR>
 nmap <leader>1 :set fdl=1<CR>
 nmap <leader>2 :set fdl=2<CR>
 nmap <leader>3 :set fdl=3<CR>
+nmap <leader>4 :set fdl=4<CR>
+nmap <leader>5 :set fdl=5<CR>
+nmap <leader>6 :set fdl=6<CR>
+nmap <leader>7 :set fdl=7<CR>
 nmap <leader>0 :set fdl=9999<CR>
 
 " Coc.nvim
-inoremap <silent><expr> <c-space> coc#refresh()
+" Code navigation
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gp <Plug>(coc-diagnostic-prev)
+nmap <silent> gn <Plug>(coc-diagnostic-next)
+" Use K to show documentation in preview window.
+nnoremap <silent> gk :call <SID>show_documentation()<CR>
 
-nnoremap <silent> <f1> :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
   else
-    call CocAction('doHover')
+    call CocActionAsync('doHover')
   endif
 endfunction
 

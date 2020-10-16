@@ -423,6 +423,7 @@ Plug 'rainerborene/vim-reek'
 Plug 'zackhsi/sorbet.vim'
 Plug 'jgdavey/vim-blockle'
 Plug 'ecomba/vim-ruby-refactoring'
+Plug 'rlue/vim-fold-rspec'
 
 " Toggle various settings on/off
 Plug 'tpope/vim-unimpaired'
@@ -473,8 +474,6 @@ Plug 'samoshkin/vim-mergetool'
 Plug 'pangloss/vim-javascript'
 Plug 'isRuslan/vim-es6'
 Plug 'leshill/vim-json'
-Plug 'lambdalisue/fern.vim'
-Plug 'antoinemadec/FixCursorHold.nvim'
 
 " Elm
 Plug 'antew/vim-elm-analyse'
@@ -521,11 +520,19 @@ let g:rustfmt_autosave = 1
 
 let g:ruby_refactoring_map_keys=0
 
+let ruby_fold = 1
+let ruby_foldable_groups = 'def do'
+let ruby_spellcheck_strings = 1
+
+let g:fold_rspec_foldenable = 1
+let g:fold_rspec_foldlevel = 4
+let g:fold_rspec_foldclose = 'all'
+
 let g:reek_always_show = 0
 let g:reek_on_loading = 0
 
-" let g:neoterm_automap_keys = 0
-" let g:neoterm_term_per_tab = 1
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
 
 let g:mergetool_layout = 'mr'
 let g:mergetool_prefer_revision = 'local'
