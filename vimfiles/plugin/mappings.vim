@@ -79,8 +79,8 @@ nnoremap <C-q> :qall<CR>
 """""""""""""""""
 
 " CocExplorer
-nmap <leader>e :CocCommand explorer --focus<CR>
-nmap <leader>E :CocCommand explorer --preset floating<CR>
+nmap <leader>e :CocCommand explorer --toggle --focus<CR>
+nmap <leader>E :CocCommand explorer --toggle --preset floating<CR>
 
 " Lazygit
 nmap <leader>g :FloatermNew lazygit<CR>

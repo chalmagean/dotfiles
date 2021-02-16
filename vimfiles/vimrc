@@ -423,7 +423,6 @@ Plug 'rainerborene/vim-reek'
 Plug 'zackhsi/sorbet.vim'
 Plug 'jgdavey/vim-blockle'
 Plug 'ecomba/vim-ruby-refactoring'
-Plug 'rlue/vim-fold-rspec'
 
 " Toggle various settings on/off
 Plug 'tpope/vim-unimpaired'
@@ -521,12 +520,10 @@ let g:rustfmt_autosave = 1
 let g:ruby_refactoring_map_keys=0
 
 let ruby_fold = 1
+let ruby_operators        = 1
+let ruby_pseudo_operators = 1
 let ruby_foldable_groups = 'def do'
 let ruby_spellcheck_strings = 1
-
-let g:fold_rspec_foldenable = 1
-let g:fold_rspec_foldlevel = 4
-let g:fold_rspec_foldclose = 'all'
 
 let g:reek_always_show = 0
 let g:reek_on_loading = 0
