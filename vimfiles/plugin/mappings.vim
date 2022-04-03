@@ -32,6 +32,9 @@ cabbr %% <C-R>=expand('%:p:h')<CR>
 
 " Normal mode mappings
 """"""""""""""""""""""
+nmap <C-]> <Plug>(fzf_tags)
+nmap <C-[> :BTags<CR>
+
 nmap <silent> tt :TestNearest<CR>
 nmap <silent> tf :TestFile<CR>
 nmap <silent> tl :TestLast<CR>
@@ -77,13 +80,6 @@ nnoremap zx mazMzv`a
 nnoremap <C-q> :qall<CR>
 " Leader mappings
 """""""""""""""""
-
-" CocExplorer
-nmap <leader>e :CocCommand explorer --toggle --focus<CR>
-nmap <leader>E :CocCommand explorer --toggle --preset floating<CR>
-
-" Lazygit
-nmap <leader>g :FloatermNew lazygit<CR>
 
 " Set fold level
 nmap <leader>1 :set fdl=1<CR>

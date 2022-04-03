@@ -24,7 +24,9 @@ alias gco='git checkout'
 alias gdc='git diff --cached'
 
 # Remove branches that have already been merged
-alias gbc='git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d'
+alias gbc='git branch --merged | egrep -v "(^\*|master|dev|main|develop)" | xargs git branch -d'
 
 alias st="source .env.test"
 alias sd="source .env.development"
+
+alias psql="PAGER='less -S' psql"

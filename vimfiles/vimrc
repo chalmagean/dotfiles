@@ -69,8 +69,10 @@ set autowrite                                " Automatically :write before
 set ignorecase
 set infercase
 set smartcase
-set foldlevel=99
-set foldmethod=indent
+set foldmethod=indent   
+set foldnestmax=10
+set nofoldenable
+set foldlevel=2
 set hidden
 set nrformats=hex                            " Don't increment octals numbers
 
@@ -237,7 +239,7 @@ let g:netrw_browse_split = 0
 " autocmd FileType netrw setl bufhidden=wipe
 
 " Treat <li> and <p> tags like the block tags they are
-let g:html_indent_tags = 'li\|p'
+" let g:html_indent_tags = 'li\|p'
 
 " Remove slipt separator vertical bar
 " set fillchars=fold:-
@@ -270,19 +272,26 @@ au BufNewFile,BufRead,BufEnter *.rb set nocursorline
 " Auto save contents of a buffer when you lose focus
 autocmd BufLeave,FocusLost * silent! update
 
-" Automatically save folds
-" augroup AutoSaveFolds
-"   autocmd!
-"   au BufWinLeave ?* mkview 1
-"   au BufWinEnter ?* silent! loadview 1
-" augroup END
-
 " Based on a range, it replace `:my_key => "value"` to `my_key: value`
 command! -range OldToNewHash <line1>,<line2>s/:\([a-zA-Z-0-9_]\+\)\s*=>/\1:/g
 
 " Update the bult-in CSS complete function to latest CSS standard
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS noci
 autocmd Filetype vimfiler setlocal nocursorline
+
+autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
+autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+
+let g:coc_global_extensions = [
+  \ 'coc-tsserver'
+  \ ]
+if isdirectory('./node_modules') && isdirectory('./node_modules/prettier')
+  let g:coc_global_extensions += ['coc-prettier']
+endif
+
+if isdirectory('./node_modules') && isdirectory('./node_modules/eslint')
+  let g:coc_global_extensions += ['coc-eslint']
+endif
 
 " Find where a partial is called
 " With no arguments it uses the current file name to do the search.
@@ -423,6 +432,9 @@ Plug 'rainerborene/vim-reek'
 Plug 'zackhsi/sorbet.vim'
 Plug 'jgdavey/vim-blockle'
 Plug 'ecomba/vim-ruby-refactoring'
+Plug 'henrik/vim-ruby-runner'
+
+Plug 'mattn/emmet-vim'
 
 " Toggle various settings on/off
 Plug 'tpope/vim-unimpaired'
@@ -459,11 +471,13 @@ Plug 'itchyny/lightline.vim'
 Plug 'voldikss/vim-floaterm'
 
 " Intellisence / LSP
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Project navigation
 Plug 'tpope/vim-vinegar'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'zackhsi/fzf-tags'
 
 " Git
 Plug 'tpope/vim-fugitive'
@@ -471,8 +485,18 @@ Plug 'samoshkin/vim-mergetool'
 
 " Javascript
 Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'isRuslan/vim-es6'
 Plug 'leshill/vim-json'
+
+" GraphQL
+Plug 'jparise/vim-graphql'
+
+Plug 'rickhowe/spotdiff.vim'
+Plug 'rickhowe/diffchar.vim'
 
 " Elm
 Plug 'antew/vim-elm-analyse'
@@ -482,9 +506,12 @@ Plug 'andys8/vim-elm-syntax'
 Plug 'tpope/vim-liquid'
 
 " Elixir
-Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh' }
-Plug 'elixir-lang/vim-elixir'
-Plug 'mhinz/vim-mix-format'
+" Plug 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh' }
+" Plug 'elixir-lang/vim-elixir'
+" Plug 'mhinz/vim-mix-format'
+
+" Handles bracketed-paste-mode in vim (aka. automatic `:set paste`)
+Plug 'ConradIrwin/vim-bracketed-paste'
 
 " Haskell
 Plug 'neovimhaskell/haskell-vim'
@@ -494,12 +521,6 @@ Plug 'rust-lang/rust.vim'
 " Themes
 Plug 'rakr/vim-one'
 Plug 'connorholyday/vim-snazzy'
-
-" Snippets
-Plug 'garbas/vim-snipmate'
-
-" Undo tree
-Plug 'simnalamburt/vim-mundo'
 
 " Required libraries
 Plug 'MarcWeber/vim-addon-mw-utils'
@@ -511,16 +532,12 @@ endif
 
 call plug#end()
 
-let g:snipMate = get(g:, 'snipMate', {}) " Allow for vimrc re-sourcing
-let g:snipMate.scope_aliases = {}
-let g:snipMate.scope_aliases['ruby'] = 'ruby,rails'
-
 let g:rustfmt_autosave = 1
 
 let g:ruby_refactoring_map_keys=0
 
 let ruby_fold = 1
-let ruby_operators        = 1
+let ruby_operators = 1
 let ruby_pseudo_operators = 1
 let ruby_foldable_groups = 'def do'
 let ruby_spellcheck_strings = 1
@@ -553,8 +570,6 @@ highlight SigBlockDelimiter cterm=italic ctermfg=9 ctermbg=11 guifg=#535353
 let g:floaterm_width = 0.9
 let g:floaterm_height = 0.9
 let g:floaterm_keymap_toggle = '<leader>t'
-command! Files FloatermNew fzf
-command! Buffers FloatermNew fzf
 
 let g:lightline = {
       \ 'colorscheme': 'seoul256',
@@ -563,16 +578,32 @@ let g:lightline = {
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
-let base16colorspace=256  " Access colors present in 256 colorspace
+" Terminal color definitions (24 bits)
+let g:terminal_color_0="#1b2b34"
+let g:terminal_color_1="#ed5f67"
+let g:terminal_color_2="#9ac895"
+let g:terminal_color_3="#fbc963"
+let g:terminal_color_4="#669acd"
+let g:terminal_color_5="#c695c6"
+let g:terminal_color_6="#5fb4b4"
+let g:terminal_color_7="#c1c6cf"
+let g:terminal_color_8="#65737e"
+let g:terminal_color_9="#fa9257"
+let g:terminal_color_10="#343d46"
+let g:terminal_color_11="#4f5b66"
+let g:terminal_color_12="#a8aebb"
+let g:terminal_color_13="#ced4df"
+let g:terminal_color_14="#ac7967"
+let g:terminal_color_15="#d9dfea"
+let g:terminal_color_background="#1b2b34"
+let g:terminal_color_foreground="#c1c6cf"
 
 let g:LanguageClient_serverCommands = {
   \ 'elm': ['elm-language-server', '--stdio'],
   \ }
 
-let g:mix_format_on_save = 1
-let g:mix_format_silent_errors = 1
-
-let g:titlecase_map_keys = 0
+" let g:mix_format_on_save = 1
+" let g:mix_format_silent_errors = 1
 
 au FileType markdown vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
 au FileType cucumber vmap <Leader><Bslash> :EasyAlign*<Bar><Enter>
@@ -601,22 +632,8 @@ let g:coc_explorer_global_presets = {
 \   }
 \ }
 
-let g:tagbar_type_elm = {
-      \ 'kinds' : [
-      \ 'f:function:0:0',
-      \ 'm:modules:0:0',
-      \ 'i:imports:1:0',
-      \ 't:types:1:0',
-      \ 'a:type aliases:0:0',
-      \ 'c:type constructors:0:0',
-      \ 'p:ports:0:0',
-      \ 's:functions:0:0',
-      \ ]
-      \}
-let g:tagbar_compact = 1
-let g:tagbar_singleclick = 1
-let g:tagbar_iconchars = ['+', '-']
-
+" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Comment' } }
+let g:fzf_layout = { 'down': '~40%' }
 let g:fzf_buffers_jump = 0
 let g:fzf_tags_command = 'ctags -R --languages=ruby --exclude=.git --exclude=log . $(bundle list --paths)'
 " Customize fzf colors to match your color scheme
@@ -634,6 +651,10 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
 
 let g:elm_format_autosave = 1
 let g:elm_setup_keybindings = 0
@@ -664,3 +685,7 @@ function! SynStack()
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
+
+let g:RubyRunner_open_below = 1
+let g:RubyRunner_window_size = 20
+

@@ -1,6 +1,9 @@
 #SOLARIZED_THEME=light
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
+export PATH="/opt/homebrew/bin:$PATH"
+export PATH="/opt/homebrew/sbin:$PATH"
+export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -25,7 +28,7 @@ DISABLE_AUTO_TITLE="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(vi-mode rvm git)
+plugins=(vi-mode git)
 
 source $ZSH/oh-my-zsh.sh
 # load aliases
@@ -57,11 +60,10 @@ export TERM=xterm-256color
 eval "$(direnv hook zsh)"
 
 # Customize to your needs...
-# export PATH=~/bin:/usr/local/Cellar/bin:/usr/local/sbin:/Users/cezar/.rvm/bin:/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/usr/local
 
-fpath=(/usr/local/share/zsh/site-functions /usr/local/share/zsh-completions $fpath)
+fpath=(/opt/homebrew/share/zsh/site-functions /opt/homebrew/share/zsh-completions $fpath)
 
-source ~/.fzf.zsh
+#source ~/.fzf.zsh
 
 # Returns whether the given command is executable or aliased.
 _has() {
@@ -69,15 +71,15 @@ _has() {
 }
 
 # fzf + ag configuration
-if _has fzf && _has ag; then
-  export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
-  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-  export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
-  export FZF_DEFAULT_OPTS='
-  --color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108
-  --color info:108,prompt:109,spinner:108,pointer:168,marker:168
-  '
-fi
+# if _has fzf && _has ag; then
+#   export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
+#   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+#   export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
+#   export FZF_DEFAULT_OPTS='
+#   --color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108
+#   --color info:108,prompt:109,spinner:108,pointer:168,marker:168
+#   '
+# fi
 
 autoload -U promptinit && promptinit
 prompt pure
@@ -98,22 +100,11 @@ export PG_DATABASE_HOST=localhost
 export PG_DATABASE_USERNAME=$USER
 export PG_DATABASE_PASSWORD=
 
-# export PATH="$PATH:$HOME/.local/bin"
+
 source ~/.profile
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
-# Add Haskell PATH
-export PATH="$PATH:$HOME/.local/bin"
-
-export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
-
 export NVM_DIR="$HOME/.nvm"
-  [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
-  [ -s "/usr/local/opt/nvm/etc/bash_completion" ] && . "/usr/local/opt/nvm/etc/bash_completion"  # This loads nvm bash_completion
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
 
 # highlight
 # args: 1: size, 2: lang
@@ -127,3 +118,4 @@ function keycode() {
     --out-format rtf | \
     pbcopy
   }
+eval "$(rbenv init - zsh)"
