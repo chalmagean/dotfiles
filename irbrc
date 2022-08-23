@@ -1,7 +1,7 @@
 require 'irb'
 require 'irb/completion'
 require 'rubygems'
-require 'pp'
+# require 'pp'
 
 
 IRB.conf[:USE_AUTOCOMPLETE] = false

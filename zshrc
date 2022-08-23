@@ -118,4 +118,6 @@ function keycode() {
     --out-format rtf | \
     pbcopy
   }
+
 eval "$(rbenv init - zsh)"
+PATH=$(pyenv root)/shims:$PATH

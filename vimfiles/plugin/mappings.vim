@@ -32,14 +32,13 @@ cabbr %% <C-R>=expand('%:p:h')<CR>
 
 " Normal mode mappings
 """"""""""""""""""""""
-nmap <C-]> <Plug>(fzf_tags)
-nmap <C-[> :BTags<CR>
+
 
 nmap <silent> tt :TestNearest<CR>
 nmap <silent> tf :TestFile<CR>
 nmap <silent> tl :TestLast<CR>
 
-nnoremap <C-p> :Files<CR>
+nnoremap <C-p> <cmd>Telescope find_files<CR>
 
 " Open the definition in a new vsplit
 nnoremap g] :sp<CR>:exec("tjump ".expand("<cword>"))<CR>
@@ -75,21 +74,14 @@ nnoremap <C-H> <C-W><C-H>
 " nnoremap K :tag <c-r>=expand("<cword>")<CR><CR>
 nnoremap K :Ack! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
-nnoremap zx mazMzv`a
-
 nnoremap <C-q> :qall<CR>
 " Leader mappings
 """""""""""""""""
 
-" Set fold level
-nmap <leader>1 :set fdl=1<CR>
-nmap <leader>2 :set fdl=2<CR>
-nmap <leader>3 :set fdl=3<CR>
-nmap <leader>4 :set fdl=4<CR>
-nmap <leader>5 :set fdl=5<CR>
-nmap <leader>6 :set fdl=6<CR>
-nmap <leader>7 :set fdl=7<CR>
-nmap <leader>0 :set fdl=9999<CR>
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
 
 " Coc.nvim
 " Code navigation
